@@ -17,15 +17,15 @@ def send_welcome(message):
 @bot.message_handler(commands=['tt'])
 def send_welcome(message):
 	if(datetime.datetime.today().isoweekday()==1):
-		bot.reply_to(message, "Todays time-table:\n DS,CIR-SS,Elective,--,Maths,DS-lab \n - Heil CSE-B -")
+		bot.reply_to(message, "Todays time-table:\n DS,CIR-SS,Elective,<lunch>,Maths,DS-lab \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==2):
-		bot.reply_to(message, "Todays time-table:\n Maths,CIR-verbals,Oops,--,ECE,DS \n - Heil CSE-B - ")
+		bot.reply_to(message, "Todays time-table:\n Maths,CIR-verbals,Oops,<lunch>,ECE,DS \n - Heil CSE-B - ")
 	if(datetime.datetime.today().isoweekday()==3):
-		 bot.reply_to(message, "Todays time-table:\n DS,Maths,ECE-Lab,--,CIR-Life skills,Oops \n - Heil CSE-B -")
+		 bot.reply_to(message, "Todays time-table:\n DS,Maths,ECE-Lab,<lunch>,CIR-Life skills,Oops \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==4):
-		bot.reply_to(message, "Todays time-table:\n ECE-Lab,Oops-Lab,--,Elective,ECE \n - Heil CSE-B -")
+		bot.reply_to(message, "Todays time-table:\n ECE-Lab,Oops-Lab,<lunch>,Elective,ECE \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==5):
-		bot.reply_to(message, "Todays time-table:\n Oops,ECE,DS,Maths,--,Oops,ECE \n - Heil CSE-B -")
+		bot.reply_to(message, "Todays time-table:\n Oops,ECE,DS,Maths,<lunch>,Oops,ECE \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==6):
 		bot.reply_to(message, "Sorry, I don't work on weekends :P \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==7):
@@ -53,6 +53,30 @@ def send_welcome(message):
 		for x in Bot_test[i]:
 			print_msg=print_msg+" "+Bot_test[i][x]
 	if(print_msg.strip()==""):
-		print_msg="No assignments " 
+		print_msg="No assignments" 
 	bot.reply_to(message, print_msg)
+#----------------add---------#
+@bot.message_handler(commands=['add'])
+def send_welcome(message):
+	scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+	creds =  ServiceAccountCredentials.from_json_keyfile_name('/home/chs/Desktop/bot/git/cse-b-assistant/CSE-B Assistant-abd8407f1776.json',scope)
+	client = gspread.authorize(creds)
+	sheet = client.open('Bot_test').sheet1
+	Bot_test = sheet.get_all_records()
+	asgn_text=message.text.split()
+	sheet.update_acell("A"+str(len(Bot_test)+2),asgn_text[1])
+	sheet.update_acell("B"+str(len(Bot_test)+2),asgn_text[2])
+	sheet.update_acell("C"+str(len(Bot_test)+2),asgn_text[3])
+	bot.reply_to(message,"Assignment added successfully!")
+#------------------delete--------#
+@bot.message_handler(commands=['delete'])
+def send_welcome(message):
+	scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+	creds =  ServiceAccountCredentials.from_json_keyfile_name('/home/chs/Desktop/bot/git/cse-b-assistant/CSE-B Assistant-abd8407f1776.json',scope)
+	client = gspread.authorize(creds)
+	sheet = client.open('Bot_test').sheet1
+	asgn_text=message.text.split()
+	row=str(sheet.findall(asgn_text[1])[0]).split()[1][1]
+	sheet.delete_row(int(row))
+	bot.reply_to(message,"Assignment deleted successfully!")
 bot.polling()
