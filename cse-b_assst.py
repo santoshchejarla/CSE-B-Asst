@@ -17,7 +17,7 @@ def send_welcome(message):
 @bot.message_handler(commands=['tt'])
 def send_welcome(message):
 	if(datetime.datetime.today().isoweekday()==1):
-		bot.reply_to(message, "Todays time-table:\n DS,CIR-SS,Elective,<lunch>,Maths,DS-lab \n - Heil CSE-B -")
+		bot.reply_to(message, "Todays time-table:\n Oops,CIR-SS,Elective,<lunch>,Maths,DS-lab \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==2):
 		bot.reply_to(message, "Todays time-table:\n Maths,CIR-verbals,Oops,<lunch>,ECE,DS \n - Heil CSE-B - ")
 	if(datetime.datetime.today().isoweekday()==3):
