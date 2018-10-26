@@ -25,7 +25,7 @@ def send_welcome(message):
 	if(datetime.datetime.today().isoweekday()==4):
 		bot.reply_to(message, "Todays time-table:\n ECE-Lab,Oops-Lab,<lunch>,Elective,ECE \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==5):
-		bot.reply_to(message, "Todays time-table:\n Oops,ECE,DS,Maths,<lunch>,Oops,ECE \n - Heil CSE-B -")
+		bot.reply_to(message, "Todays time-table:\n DS,ECE,DS,Maths,<lunch>,ECE \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==6):
 		bot.reply_to(message, "Sorry, I don't work on weekends :P \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==7):
@@ -44,7 +44,7 @@ def send_welcome(message):
 @bot.message_handler(commands=['asgn'])
 def send_welcome(message):
 	scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-	creds =  ServiceAccountCredentials.from_json_keyfile_name('/home/chs/Desktop/bot/git/cse-b-assistant/CSE-B Assistant-abd8407f1776.json',scope)
+	creds =  ServiceAccountCredentials.from_json_keyfile_name('CSE-B Assistant-abd8407f1776.json',scope)
 	client = gspread.authorize(creds)
 	sheet = client.open('Bot_test').sheet1
 	Bot_test = sheet.get_all_records()
@@ -59,7 +59,7 @@ def send_welcome(message):
 @bot.message_handler(commands=['add'])
 def send_welcome(message):
 	scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-	creds =  ServiceAccountCredentials.from_json_keyfile_name('/home/chs/Desktop/bot/git/cse-b-assistant/CSE-B Assistant-abd8407f1776.json',scope)
+	creds =  ServiceAccountCredentials.from_json_keyfile_name('CSE-B Assistant-abd8407f1776.json',scope)
 	client = gspread.authorize(creds)
 	sheet = client.open('Bot_test').sheet1
 	Bot_test = sheet.get_all_records()
@@ -72,7 +72,7 @@ def send_welcome(message):
 @bot.message_handler(commands=['delete'])
 def send_welcome(message):
 	scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-	creds =  ServiceAccountCredentials.from_json_keyfile_name('/home/chs/Desktop/bot/git/cse-b-assistant/CSE-B Assistant-abd8407f1776.json',scope)
+	creds =  ServiceAccountCredentials.from_json_keyfile_name('CSE-B Assistant-abd8407f1776.json',scope)
 	client = gspread.authorize(creds)
 	sheet = client.open('Bot_test').sheet1
 	asgn_text=message.text.split()
