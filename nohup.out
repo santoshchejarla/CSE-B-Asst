@@ -1,0 +1,56 @@
+Exception in thread WorkerThread2 (most likely raised during interpreter shutdown):
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/threading.py", line 801, in __bootstrap_inner
+  File "/home/ubuntu/CSE-B/CSE-B-Asst./telebot/util.py", line 62, in run
+<type 'exceptions.AttributeError'>: 'NoneType' object has no attribute 'Empty'
+2018-10-13 18:43:34,405 (util.py:65 PollingThread) ERROR - TeleBot: "ReadTimeout occurred, args=(ReadTimeoutError("HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=30)",),)
+Traceback (most recent call last):
+  File "/home/ubuntu/CSE-B/CSE-B-Asst./telebot/util.py", line 59, in run
+    task(*args, **kwargs)
+  File "/home/ubuntu/CSE-B/CSE-B-Asst./telebot/__init__.py", line 276, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1), timeout=timeout)
+  File "/home/ubuntu/CSE-B/CSE-B-Asst./telebot/__init__.py", line 246, in get_updates
+    json_updates = apihelper.get_updates(self.token, offset, limit, timeout, allowed_updates)
+  File "/home/ubuntu/CSE-B/CSE-B-Asst./telebot/apihelper.py", line 180, in get_updates
+    return _make_request(token, method_url, params=payload)
+  File "/home/ubuntu/CSE-B/CSE-B-Asst./telebot/apihelper.py", line 54, in _make_request
+    timeout=(connect_timeout, read_timeout), proxies=proxy)
+  File "/home/ubuntu/.local/lib/python2.7/site-packages/requests/sessions.py", line 512, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/.local/lib/python2.7/site-packages/requests/sessions.py", line 622, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/.local/lib/python2.7/site-packages/requests/adapters.py", line 526, in send
+    raise ReadTimeout(e, request=request)
+ReadTimeout: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=30)
+"
+Traceback (most recent call last):
+  File "test.py", line 58, in <module>
+    bot.polling()
+  File "/home/ubuntu/CSE-B/CSE-B-Asst./telebot/__init__.py", line 389, in polling
+    self.__threaded_polling(none_stop, interval, timeout)
+  File "/home/ubuntu/CSE-B/CSE-B-Asst./telebot/__init__.py", line 412, in __threaded_polling
+    polling_thread.raise_exceptions()
+  File "/home/ubuntu/CSE-B/CSE-B-Asst./telebot/util.py", line 78, in raise_exceptions
+    six.reraise(self.exc_info[0], self.exc_info[1], self.exc_info[2])
+  File "/home/ubuntu/CSE-B/CSE-B-Asst./telebot/util.py", line 59, in run
+    task(*args, **kwargs)
+  File "/home/ubuntu/CSE-B/CSE-B-Asst./telebot/__init__.py", line 276, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1), timeout=timeout)
+  File "/home/ubuntu/CSE-B/CSE-B-Asst./telebot/__init__.py", line 246, in get_updates
+    json_updates = apihelper.get_updates(self.token, offset, limit, timeout, allowed_updates)
+  File "/home/ubuntu/CSE-B/CSE-B-Asst./telebot/apihelper.py", line 180, in get_updates
+    return _make_request(token, method_url, params=payload)
+  File "/home/ubuntu/CSE-B/CSE-B-Asst./telebot/apihelper.py", line 54, in _make_request
+    timeout=(connect_timeout, read_timeout), proxies=proxy)
+  File "/home/ubuntu/.local/lib/python2.7/site-packages/requests/sessions.py", line 512, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/ubuntu/.local/lib/python2.7/site-packages/requests/sessions.py", line 622, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/ubuntu/.local/lib/python2.7/site-packages/requests/adapters.py", line 526, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=30)
+Exception in thread WorkerThread2 (most likely raised during interpreter shutdown):
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/threading.py", line 801, in __bootstrap_inner
+  File "/home/ubuntu/CSE-B/CSE-B-Asst./telebot/util.py", line 62, in run
+<type 'exceptions.AttributeError'>: 'NoneType' object has no attribute 'Empty'

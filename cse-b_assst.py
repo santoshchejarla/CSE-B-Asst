@@ -25,7 +25,7 @@ def send_welcome(message):
 	if(datetime.datetime.today().isoweekday()==4):
 		bot.reply_to(message, "Todays time-table:\n ECE-Lab,Oops-Lab,<lunch>,Elective,ECE \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==5):
-		bot.reply_to(message, "Todays time-table:\n Oops,ECE,DS,Maths,<lunch>,Oops,ECE \n - Heil CSE-B -")
+		bot.reply_to(message, "Todays time-table:\n DS,ECE,DS,Maths,<lunch>,ECE \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==6):
 		bot.reply_to(message, "Sorry, I don't work on weekends :P \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==7):
