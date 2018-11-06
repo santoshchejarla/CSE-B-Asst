@@ -2,20 +2,30 @@ import telebot
 import datetime
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+ 
 
 bot = telebot.TeleBot("642052925:AAHrCbgOuDPE2THSTZnpRYwpkBXDFtzxzeA")
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
+	F = open("log.txt","a")
+	F.write("\n"+message.chat.type+" "+message.chat.first_name+" "+message.chat.username+" "+str(str(datetime.datetime.now()))+" "+"start/help")
+	F.close
 	bot.reply_to(message, "Hi, here are list of commands available:\n/hi,/about,/desc,/hallo,/ola - Greeting msg\n/tt - displays time-table\n/asgn - displays pending assignments\n/cinfo - displays course info\n/einfo - displays exams info\n/hinfo - displays holidays info\n - Heil CSE-B -")
 
 @bot.message_handler(commands=['hi', 'about','desc','hallo','ola'])
 def send_welcome(message):
+	F = open("log.txt","a")
+	F.write("\n"+message.chat.type+" "+message.chat.first_name+" "+message.chat.username+" "+str(str(str(datetime.datetime.now())))+" "+"hi")
+	F.close
 	bot.reply_to(message, "Hie, I live to serve CSE-B")
 
 #-------------- Time table---------------------------#
 @bot.message_handler(commands=['tt'])
 def send_welcome(message):
+	F = open("log.txt","a")
+	F.write("\n"+message.chat.type+" "+message.chat.first_name+" "+message.chat.username+" "+str(str(datetime.datetime.now()))+" "+"tt")
+	F.close
 	if(datetime.datetime.today().isoweekday()==1):
 		bot.reply_to(message, "Todays time-table:\n Oops,CIR-SS,Elective,<lunch>,Maths,DS-lab \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==2):
@@ -34,15 +44,24 @@ def send_welcome(message):
 #---------------- cinfo ----------------------#	
 @bot.message_handler(commands=['cinfo'])
 def send_welcome(message):
+	F = open("log.txt","a")
+	F.write("\n"+message.chat.type+" "+message.chat.first_name+" "+message.chat.username+" "+str(str(datetime.datetime.now()))+" "+"cinfo")
+	F.close
 	bot.reply_to(message, "Cousers info :\nDS -15CSE201,15CSE281- Krishnaveni\nOops -15CSE202,15CSE282- Kavita Kr\nMaths -15MAT201- \nECE -15ECE202- lakshmi\nECE lab -15ECE281- Pratima\n: CIR :\nManoj - ")
 
 #----------------Not implemented - einfo,hinfo---------#
 @bot.message_handler(commands=['einfo', 'hinfo'])
 def send_welcome(message):
+	F = open("log.txt","a")
+	F.write("\n"+message.chat.type+" "+message.chat.first_name+" "+message.chat.username+" "+str(str(datetime.datetime.now()))+" "+"einfo/hinfo")
+	F.close
 	bot.reply_to(message, "Not implemented")
 #----------------asgn---------#
 @bot.message_handler(commands=['asgn'])
 def send_welcome(message):
+	F = open("log.txt","a")
+	F.write("\n"+message.chat.type+" "+message.chat.first_name+" "+message.chat.username+" "+str(str(datetime.datetime.now()))+" "+"asgn")
+	F.close
 	scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
 	creds =  ServiceAccountCredentials.from_json_keyfile_name('CSE-B Assistant-abd8407f1776.json',scope)
 	client = gspread.authorize(creds)
@@ -58,6 +77,9 @@ def send_welcome(message):
 #----------------add---------#
 @bot.message_handler(commands=['add'])
 def send_welcome(message):
+	F = open("log.txt","a")
+	F.write("\n"+message.chat.type+" "+message.chat.first_name+" "+message.chat.username+" "+str(str(datetime.datetime.now()))+" "+"add")
+	F.close
 	scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
 	creds =  ServiceAccountCredentials.from_json_keyfile_name('CSE-B Assistant-abd8407f1776.json',scope)
 	client = gspread.authorize(creds)
@@ -71,6 +93,9 @@ def send_welcome(message):
 #------------------delete--------#
 @bot.message_handler(commands=['delete'])
 def send_welcome(message):
+	F = open("log.txt","a")
+	F.write("\n"+message.chat.type+" "+message.chat.first_name+" "+message.chat.username+" "+str(str(datetime.datetime.now()))+" "+"delete")
+	F.close
 	scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
 	creds =  ServiceAccountCredentials.from_json_keyfile_name('CSE-B Assistant-abd8407f1776.json',scope)
 	client = gspread.authorize(creds)
