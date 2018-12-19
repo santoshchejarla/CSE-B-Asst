@@ -10,9 +10,9 @@ bot = telebot.TeleBot("642052925:AAHrCbgOuDPE2THSTZnpRYwpkBXDFtzxzeA")
 def send_welcome(message):
 	try:
 		F = open("log.txt","a")
-		F.write("----------------------------")
+		F.write("\n")
 		F.write(str(message))
-		F.write("----------------------------")
+		F.write("\n")
 		F.close
 	except:
 		print("Error in logging the request")
@@ -22,9 +22,9 @@ def send_welcome(message):
 def send_welcome(message):
 	try:
 		F = open("log.txt","a")
-		F.write("----------------------------")
+		F.write("\n")
 		F.write(str(message))
-		F.write("----------------------------")
+		F.write("\n")
 		F.close
 	except:
 		print("Error in logging the request")
@@ -35,9 +35,9 @@ def send_welcome(message):
 def send_welcome(message):
 	try:
 		F = open("log.txt","a")
-		F.write("----------------------------")
+		F.write("\n")
 		F.write(str(message))
-		F.write("----------------------------")
+		F.write("\n")
 		F.close
 	except:
 		print("Error in logging the request")
@@ -61,9 +61,9 @@ def send_welcome(message):
 def send_welcome(message):
 	try:
 		F = open("log.txt","a")
-		F.write("----------------------------")
+		F.write("\n")
 		F.write(str(message))
-		F.write("----------------------------")
+		F.write("\n")
 		F.close
 	except:
 		print("Error in logging the request")
@@ -74,9 +74,9 @@ def send_welcome(message):
 def send_welcome(message):
 	try:
 		F = open("log.txt","a")
-		F.write("----------------------------")
+		F.write("\n")
 		F.write(str(message))
-		F.write("----------------------------")
+		F.write("\n")
 		F.close
 	except:
 		print("Error in logging the request")
@@ -86,9 +86,9 @@ def send_welcome(message):
 def send_welcome(message):
 	try:
 		F = open("log.txt","a")
-		F.write("----------------------------")
+		F.write("\n")
 		F.write(str(message))
-		F.write("----------------------------")
+		F.write("\n")
 		F.close
 	except:
 		print("Error in logging the request")
@@ -109,9 +109,9 @@ def send_welcome(message):
 def send_welcome(message):
 	try:
 		F = open("log.txt","a")
-		F.write("----------------------------")
+		F.write("\n")
 		F.write(str(message))
-		F.write("----------------------------")
+		F.write("\n")
 		F.close
 	except:
 		print("Error in logging the request")
@@ -133,9 +133,9 @@ def send_welcome(message):
 def send_welcome(message):
 	try:
 		F = open("log.txt","a")
-		F.write("----------------------------")
+		F.write("\n")
 		F.write(str(message))
-		F.write("----------------------------")
+		F.write("\n")
 		F.close
 	except:
 		print("Error in logging the request")
