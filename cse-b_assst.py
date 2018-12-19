@@ -11,7 +11,7 @@ def send_welcome(message):
 	try:
 		F = open("log.txt","a")
 		F.write("----------------------------")
-		F.write(str(message)))
+		F.write(str(message))
 		F.write("----------------------------")
 		F.close
 	except:
@@ -23,7 +23,7 @@ def send_welcome(message):
 	try:
 		F = open("log.txt","a")
 		F.write("----------------------------")
-		F.write(str(message)))
+		F.write(str(message))
 		F.write("----------------------------")
 		F.close
 	except:
@@ -36,7 +36,7 @@ def send_welcome(message):
 	try:
 		F = open("log.txt","a")
 		F.write("----------------------------")
-		F.write(str(message)))
+		F.write(str(message))
 		F.write("----------------------------")
 		F.close
 	except:
@@ -62,7 +62,7 @@ def send_welcome(message):
 	try:
 		F = open("log.txt","a")
 		F.write("----------------------------")
-		F.write(str(message)))
+		F.write(str(message))
 		F.write("----------------------------")
 		F.close
 	except:
@@ -75,7 +75,7 @@ def send_welcome(message):
 	try:
 		F = open("log.txt","a")
 		F.write("----------------------------")
-		F.write(str(message)))
+		F.write(str(message))
 		F.write("----------------------------")
 		F.close
 	except:
@@ -87,7 +87,7 @@ def send_welcome(message):
 	try:
 		F = open("log.txt","a")
 		F.write("----------------------------")
-		F.write(str(message)))
+		F.write(str(message))
 		F.write("----------------------------")
 		F.close
 	except:
@@ -110,7 +110,7 @@ def send_welcome(message):
 	try:
 		F = open("log.txt","a")
 		F.write("----------------------------")
-		F.write(str(message)))
+		F.write(str(message))
 		F.write("----------------------------")
 		F.close
 	except:
@@ -134,7 +134,7 @@ def send_welcome(message):
 	try:
 		F = open("log.txt","a")
 		F.write("----------------------------")
-		F.write(str(message)))
+		F.write(str(message))
 		F.write("----------------------------")
 		F.close
 	except:
