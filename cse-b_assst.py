@@ -10,7 +10,9 @@ bot = telebot.TeleBot("642052925:AAHrCbgOuDPE2THSTZnpRYwpkBXDFtzxzeA")
 def send_welcome(message):
 	try:
 		F = open("log.txt","a")
-		F.write("\n"+message.chat.type+" "+message.chat.username+" "+str(str(datetime.datetime.now()))+" "+"start/help")
+		F.write("----------------------------")
+		F.write(str(message)))
+		F.write("----------------------------")
 		F.close
 	except:
 		print("Error in logging the request")
@@ -20,7 +22,9 @@ def send_welcome(message):
 def send_welcome(message):
 	try:
 		F = open("log.txt","a")
-		F.write("\n"+message.chat.type+" "+message.chat.username+" "+str(str(str(datetime.datetime.now())))+" "+"hi")
+		F.write("----------------------------")
+		F.write(str(message)))
+		F.write("----------------------------")
 		F.close
 	except:
 		print("Error in logging the request")
@@ -31,7 +35,9 @@ def send_welcome(message):
 def send_welcome(message):
 	try:
 		F = open("log.txt","a")
-		F.write("\n"+message.chat.type+" "+message.chat.username+" "+str(str(datetime.datetime.now()))+" "+"tt")
+		F.write("----------------------------")
+		F.write(str(message)))
+		F.write("----------------------------")
 		F.close
 	except:
 		print("Error in logging the request")
@@ -55,7 +61,9 @@ def send_welcome(message):
 def send_welcome(message):
 	try:
 		F = open("log.txt","a")
-		F.write("\n"+message.chat.type+" "+message.chat.username+" "+str(str(datetime.datetime.now()))+" "+"cinfo")
+		F.write("----------------------------")
+		F.write(str(message)))
+		F.write("----------------------------")
 		F.close
 	except:
 		print("Error in logging the request")
@@ -66,7 +74,9 @@ def send_welcome(message):
 def send_welcome(message):
 	try:
 		F = open("log.txt","a")
-		F.write("\n"+message.chat.type+" "+message.chat.username+" "+str(str(datetime.datetime.now()))+" "+"einfo/hinfo")
+		F.write("----------------------------")
+		F.write(str(message)))
+		F.write("----------------------------")
 		F.close
 	except:
 		print("Error in logging the request")
@@ -76,7 +86,9 @@ def send_welcome(message):
 def send_welcome(message):
 	try:
 		F = open("log.txt","a")
-		F.write("\n"+message.chat.type+" "+message.chat.username+" "+str(str(datetime.datetime.now()))+" "+"asgn")
+		F.write("----------------------------")
+		F.write(str(message)))
+		F.write("----------------------------")
 		F.close
 	except:
 		print("Error in logging the request")
@@ -97,7 +109,9 @@ def send_welcome(message):
 def send_welcome(message):
 	try:
 		F = open("log.txt","a")
-		F.write("\n"+message.chat.type+" "+message.chat.username+" "+str(str(datetime.datetime.now()))+" "+"add")
+		F.write("----------------------------")
+		F.write(str(message)))
+		F.write("----------------------------")
 		F.close
 	except:
 		print("Error in logging the request")
@@ -119,7 +133,9 @@ def send_welcome(message):
 def send_welcome(message):
 	try:
 		F = open("log.txt","a")
-		F.write("\n"+message.chat.type+" "+message.chat.username+" "+str(str(datetime.datetime.now()))+" "+"delete")
+		F.write("----------------------------")
+		F.write(str(message)))
+		F.write("----------------------------")
 		F.close
 	except:
 		print("Error in logging the request")
