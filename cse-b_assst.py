@@ -2,6 +2,8 @@ import telebot
 import datetime
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import requests
+import json
  
 
 bot = telebot.TeleBot("642052925:AAHrCbgOuDPE2THSTZnpRYwpkBXDFtzxzeA")
@@ -153,4 +155,95 @@ def send_welcome(message):
 			bot.reply_to(message,"Assignment Not found")
 	else : 
 		bot.reply_to(message,"Please follow the syntax correctly : /delete <subject>")
+
+#-------------grades-----------#
+
+@bot.message_handler(commands=['grades'])
+def send_welcome(message):
+	try:
+		F = open("log.txt","a")
+		F.write("\n")
+		F.write(str(message))
+		F.write("\n")
+		F.close
+	except:
+		print("Error in logging the request")
+	scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+	creds =  ServiceAccountCredentials.from_json_keyfile_name('CSE-B Assistant-abd8407f1776.json',scope)
+	client = gspread.authorize(creds)
+	url = 'https://aumshelper.herokuapp.com/api/aums/grades'
+	sheet = client.open('AUMS-API').sheet1
+	try:
+		row=str(sheet.findall(str(message.json['from']['id'])))
+		row = sheet.row_values(row.split()[1][1:2])
+		uname = str(row[1])
+		pwd = str(row[2])
+		data = {'username':uname,'password':pwd,'options':{'sem':'3'}}
+		content = json.loads(requests.post(url,json=data).text)
+		print_msg = "SGPA : " + str(content['data']['SGPA']+"\n")
+		for i in range (0,len(content['data']['grades'])):
+			print_msg += content['data']['grades'][i]['name']+" "+content['data']['grades'][i]['grade']+"\n"
+		bot.reply_to(message, print_msg)
+	except:
+		bot.reply_to(message,"unable to request")
+
+
+#-------------attendance-----------#
+@bot.message_handler(commands=['attendance'])
+def send_welcome(message):
+	try:
+		F = open("log.txt","a")
+		F.write("\n")
+		F.write(str(message))
+		F.write("\n")
+		F.close
+	except:
+		print("Error in logging the request")
+	scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+	creds =  ServiceAccountCredentials.from_json_keyfile_name('CSE-B Assistant-abd8407f1776.json',scope)
+	client = gspread.authorize(creds)
+	url = 'https://aumshelper.herokuapp.com/api/aums/attendance'
+	sheet = client.open('AUMS-API').sheet1
+	try:
+		row=str(sheet.findall(str(message.json['from']['id'])))
+		row = sheet.row_values(row.split()[1][1:2])
+		uname = str(row[1])
+		pwd = str(row[2])
+		data = {'username':uname,'password':pwd,'options':{'sem':'3'}}
+		content = json.loads(requests.post(url,json=data).text)
+		print_msg=""
+		for i in range (0,len(content['data'][0])):
+			print_msg+=content['data'][i]['name']+" "+content['data'][i]['percentage']+"\n"
+		bot.reply_to(message,print_msg)
+	except:
+		bot.reply_to(message,"unable to request")
+
+
+#------------register--------------_#
+
+@bot.message_handler(commands=['register'])
+def send_welcome(message):
+	try:
+		F = open("log.txt","a")
+		F.write("\n")
+		F.write(str(message))
+		F.write("\n")
+		F.close
+	except:
+		print("Error in logging the request")
+	scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+	creds =  ServiceAccountCredentials.from_json_keyfile_name('CSE-B Assistant-abd8407f1776.json',scope)
+	client = gspread.authorize(creds)
+	sheet = client.open('AUMS-API').sheet1
+	Bot_test = sheet.get_all_records()
+	asgn_text=message.text.split()
+	if (len(asgn_text)==3):
+		sheet.update_acell("A"+str(len(Bot_test)+2),message.json['from']['id'])
+		sheet.update_acell("B"+str(len(Bot_test)+2),asgn_text[1])
+		sheet.update_acell("C"+str(len(Bot_test)+2),asgn_text[2])
+		bot.reply_to(message,"User registered successfully!")
+	else : 
+		bot.reply_to(message,"Please follow the correct syntax : /register <username> <password>")	
+
+
 bot.polling()
