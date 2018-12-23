@@ -4,6 +4,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import requests
 import json
+import base64
  
 
 bot = telebot.TeleBot("642052925:AAHrCbgOuDPE2THSTZnpRYwpkBXDFtzxzeA")
@@ -177,7 +178,8 @@ def send_welcome(message):
 		row=str(sheet.findall(str(message.json['from']['id'])))
 		row = sheet.row_values(row.split()[1][1:2])
 		uname = str(row[1])
-		pwd = str(row[2])
+		b64_pwd = (str(base64.b64decode(bytes(row[2][2:len(row[2])-1], 'ascii'))))
+		pwd = str(b64_pwd[2:len(b64_pwd)-1])
 		data = {'username':uname,'password':pwd,'options':{'sem':'3'}}
 		content = json.loads(requests.post(url,json=data).text)
 		print_msg = "SGPA : " + str(content['data']['SGPA']+"\n")
@@ -208,7 +210,8 @@ def send_welcome(message):
 		row=str(sheet.findall(str(message.json['from']['id'])))
 		row = sheet.row_values(row.split()[1][1:2])
 		uname = str(row[1])
-		pwd = str(row[2])
+		b64_pwd = (str(base64.b64decode(bytes(row[2][2:len(row[2])-1], 'ascii'))))
+		pwd = str(b64_pwd[2:len(b64_pwd)-1])
 		data = {'username':uname,'password':pwd,'options':{'sem':'3'}}
 		content = json.loads(requests.post(url,json=data).text)
 		print_msg=""
@@ -240,7 +243,7 @@ def send_welcome(message):
 	if (len(asgn_text)==3):
 		sheet.update_acell("A"+str(len(Bot_test)+2),message.json['from']['id'])
 		sheet.update_acell("B"+str(len(Bot_test)+2),asgn_text[1])
-		sheet.update_acell("C"+str(len(Bot_test)+2),asgn_text[2])
+		sheet.update_acell("C"+str(len(Bot_test)+2),(str(base64.b64encode(bytes(asgn_text[2], 'ascii')))))
 		bot.reply_to(message,"User registered successfully!")
 	else : 
 		bot.reply_to(message,"Please follow the correct syntax : /register <username> <password>")	
