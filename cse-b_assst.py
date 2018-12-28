@@ -174,19 +174,19 @@ def send_welcome(message):
 	client = gspread.authorize(creds)
 	url = 'https://aumshelper.herokuapp.com/api/aums/grades'
 	sheet = client.open('AUMS-API').sheet1
-	try:
-		row=str(sheet.findall(str(message.json['from']['id'])))
-		row = sheet.row_values(row.split()[1][1:2])
-		uname = str(row[1])
-		password = base64.b64decode(bytes(row[2]),'ascii')
-		data = {'username':uname,'password':password,'options':{'sem':'3'}}
-		content = json.loads(requests.post(url,json=data).text)
-		print_msg = "SGPA : " + str(content['data']['SGPA']+"\n")
-		for i in range (0,len(content['data']['grades'])):
-			print_msg += content['data']['grades'][i]['name']+" "+content['data']['grades'][i]['grade']+"\n"
-		bot.reply_to(message, print_msg)
-	except:
-		bot.reply_to(message, "Unable to request")
+	#try:
+	row=str(sheet.findall(str(message.json['from']['id'])))
+	row = sheet.row_values(row.split()[1][1:2])
+	uname = str(row[1])
+	password = base64.b64decode(bytes(str(row[2])[2:-1], 'ascii'))
+	data = {'username':uname,'password':str(password)[2:-1],'options':{'sem':'3'}}
+	content = json.loads(requests.post(url,json=data).text)
+	print_msg = "SGPA : " + str(content['data']['SGPA']+"\n")
+	for i in range (0,len(content['data']['grades'])):
+		print_msg += content['data']['grades'][i]['name']+" "+content['data']['grades'][i]['grade']+"\n"
+	bot.reply_to(message, print_msg)
+	# except:
+	# 	bot.reply_to(message, "Unable to request")
 
 #-------------attendance-----------#
 @bot.message_handler(commands=['attendance'])
@@ -208,8 +208,8 @@ def send_welcome(message):
 		row=str(sheet.findall(str(message.json['from']['id'])))
 		row = sheet.row_values(row.split()[1][1:2])
 		uname = str(row[1])
-		password = base64.b64decode(bytes(row[2]), 'ascii')
-		data = {'username':uname,'password':password,'options':{'sem':'3'}}
+		password = base64.b64decode(bytes(str(row[2])[2:-1], 'ascii'))
+		data = {'username':uname,'password':str(password)[2:-1],'options':{'sem':'3'}}
 		content = json.loads(requests.post(url,json=data).text)
 		print_msg=""
 		for i in range (0,len(content['data'][0])):
@@ -242,8 +242,8 @@ def send_welcome(message):
 		if (len(asgn_text)==3):
 			sheet.update_acell("A"+str(len(Bot_test)+2),message.json['from']['id'])
 			sheet.update_acell("B"+str(len(Bot_test)+2),asgn_text[1])
-			password= base64.b64encode(bytes(asgn_text[2]),'ascii')
-			sheet.update_acell("C"+str(len(Bot_test)+2),password)
+			password= base64.b64encode(bytes(asgn_text[2],'ascii'))
+			sheet.update_acell("C"+str(len(Bot_test)+2),str(password))
 			bot.reply_to(message,"User registered successfully!")
 		else : 
 			bot.reply_to(message,"Please follow the correct syntax : /register <username> <password>")	
