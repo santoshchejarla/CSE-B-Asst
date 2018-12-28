@@ -178,17 +178,15 @@ def send_welcome(message):
 		row=str(sheet.findall(str(message.json['from']['id'])))
 		row = sheet.row_values(row.split()[1][1:2])
 		uname = str(row[1])
-		b64_pwd = (str(base64.b64decode(bytes(row[2][2:len(row[2])-1], 'ascii'))))
-		pwd = str(b64_pwd[2:len(b64_pwd)-1])
-		data = {'username':uname,'password':pwd,'options':{'sem':'3'}}
+		password = base64.b64decode(bytes(row[2]),'ascii')
+		data = {'username':uname,'password':password,'options':{'sem':'3'}}
 		content = json.loads(requests.post(url,json=data).text)
 		print_msg = "SGPA : " + str(content['data']['SGPA']+"\n")
 		for i in range (0,len(content['data']['grades'])):
 			print_msg += content['data']['grades'][i]['name']+" "+content['data']['grades'][i]['grade']+"\n"
 		bot.reply_to(message, print_msg)
 	except:
-		bot.reply_to(message,"unable to request")
-
+		bot.reply_to(message, "Unable to request")
 
 #-------------attendance-----------#
 @bot.message_handler(commands=['attendance'])
@@ -210,16 +208,16 @@ def send_welcome(message):
 		row=str(sheet.findall(str(message.json['from']['id'])))
 		row = sheet.row_values(row.split()[1][1:2])
 		uname = str(row[1])
-		b64_pwd = (str(base64.b64decode(bytes(row[2][2:len(row[2])-1], 'ascii'))))
-		pwd = str(b64_pwd[2:len(b64_pwd)-1])
-		data = {'username':uname,'password':pwd,'options':{'sem':'3'}}
+		password = base64.b64decode(bytes(row[2]), 'ascii')
+		data = {'username':uname,'password':password,'options':{'sem':'3'}}
 		content = json.loads(requests.post(url,json=data).text)
 		print_msg=""
 		for i in range (0,len(content['data'][0])):
 			print_msg+=content['data'][i]['name']+" "+content['data'][i]['percentage']+"\n"
 		bot.reply_to(message,print_msg)
-	except:
-		bot.reply_to(message,"unable to request")
+	except IndexError as e:
+		print(e)
+		bot.reply_to(message,'unable to process the request')
 
 
 #------------register--------------_#
@@ -238,15 +236,19 @@ def send_welcome(message):
 	creds =  ServiceAccountCredentials.from_json_keyfile_name('CSE-B Assistant-abd8407f1776.json',scope)
 	client = gspread.authorize(creds)
 	sheet = client.open('AUMS-API').sheet1
-	Bot_test = sheet.get_all_records()
-	asgn_text=message.text.split()
-	if (len(asgn_text)==3):
-		sheet.update_acell("A"+str(len(Bot_test)+2),message.json['from']['id'])
-		sheet.update_acell("B"+str(len(Bot_test)+2),asgn_text[1])
-		sheet.update_acell("C"+str(len(Bot_test)+2),(str(base64.b64encode(bytes(asgn_text[2], 'ascii')))))
-		bot.reply_to(message,"User registered successfully!")
-	else : 
-		bot.reply_to(message,"Please follow the correct syntax : /register <username> <password>")	
-
+	try:
+		Bot_test = sheet.get_all_records()
+		asgn_text=message.text.split()
+		if (len(asgn_text)==3):
+			sheet.update_acell("A"+str(len(Bot_test)+2),message.json['from']['id'])
+			sheet.update_acell("B"+str(len(Bot_test)+2),asgn_text[1])
+			password= base64.b64encode(bytes(asgn_text[2]),'ascii')
+			sheet.update_acell("C"+str(len(Bot_test)+2),password)
+			bot.reply_to(message,"User registered successfully!")
+		else : 
+			bot.reply_to(message,"Please follow the correct syntax : /register <username> <password>")	
+	except IndexError as e:
+		print(e)
+		bot.reply_to(message,'Unable to process the request')
 
 bot.polling()
