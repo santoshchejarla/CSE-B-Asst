@@ -177,8 +177,10 @@ def send_welcome(message):
 		row=str(sheet.findall(str(message.json['from']['id'])))
 		row = sheet.row_values(row.split()[1][1:2])
 		uname = str(row[1])
-		password = base64.b64decode(bytes(str(row[2])[2:-1], 'ascii'))
-		data = {'username':uname,'password':str(password)[2:-1],'options':{'sem':'3'}}
+		password = row[2][2:-1].encode()
+		password = base64.b64decode(password)
+		password = password.decode()
+		data = {'username':uname,'password':password,'options':{'sem':'3'}}
 		content = requests.post(url,json=data)
 		content = content.json()
 		print_msg = "SGPA : " + str(content['data']['SGPA']+"\n")
@@ -208,8 +210,10 @@ def send_welcome(message):
 		row=str(sheet.findall(str(message.json['from']['id'])))
 		row = sheet.row_values(row.split()[1][1:2])
 		uname = str(row[1])
-		password = base64.b64decode(bytes(str(row[2])[2:-1], 'ascii'))
-		data = {'username':uname,'password':str(password)[2:-1],'options':{'sem':'4'}}
+		password = row[2][2:-1].encode()
+		password = base64.b64decode(password)
+		password = password.decode()
+		data = {'username':uname,'password':password,'options':{'sem':'4'}}
 		content = requests.post(url,json=data)
 		content = content.json()
 		print_msg=""

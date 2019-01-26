@@ -1,8 +1,7 @@
 import base64
-
-encoded = base64.b64encode(bytes('333222111','ascii'))
-
+import binascii
+a='asd'.encode()
+encoded = base64.b64encode(a)
 print(encoded)
-
 decoded = base64.b64decode(encoded)
-print(str(decoded)[2:-1])
+print(decoded.decode())
