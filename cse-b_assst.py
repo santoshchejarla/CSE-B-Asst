@@ -3,7 +3,6 @@ import datetime
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import requests
-import json
 import base64
  
 
@@ -45,15 +44,15 @@ def send_welcome(message):
 	except:
 		print("Error in logging the request")
 	if(datetime.datetime.today().isoweekday()==1):
-		bot.reply_to(message, "Todays time-table:\n Oops,CIR-SS,Elective,<lunch>,Maths,DS-lab \n - Heil CSE-B -")
+		bot.reply_to(message, "Todays time-table:\n Maths,OS,Elective,<lunch>,Embedded,algorithms,Embedded lab \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==2):
-		bot.reply_to(message, "Todays time-table:\n Maths,CIR-verbals,DS,<lunch>,ECE,Oops \n - Heil CSE-B - ")
+		bot.reply_to(message, "Todays time-table:\n Algorithms,CIR-SS,OS,<lunch>,OS lab,Maths \n - Heil CSE-B - ")
 	if(datetime.datetime.today().isoweekday()==3):
-		 bot.reply_to(message, "Todays time-table:\n DS,Maths,ECE-Lab,<lunch>,CIR-Life skills,Oops \n - Heil CSE-B -")
+		 bot.reply_to(message, "Todays time-table:\n Embedded,Algorithms,Algorithms,<lunch>,Maths,OS \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==4):
-		bot.reply_to(message, "Todays time-table:\n ECE-Lab,Oops-Lab,<lunch>,Elective,ECE \n - Heil CSE-B -")
+		bot.reply_to(message, "Todays time-table:\n CIR-QA,CIR-VA,Embedded lab \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==5):
-		bot.reply_to(message, "Todays time-table:\n DS,ECE,DS,Maths,<lunch>,ECE \n - Heil CSE-B -")
+		bot.reply_to(message, "Todays time-table:\n Maths,Embedded,OS<lunch>,Elective,AVP \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==6):
 		bot.reply_to(message, "Sorry, I don't work on weekends :P \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==7):
@@ -174,19 +173,20 @@ def send_welcome(message):
 	client = gspread.authorize(creds)
 	url = 'https://aumshelper.herokuapp.com/api/aums/grades'
 	sheet = client.open('AUMS-API').sheet1
-	#try:
-	row=str(sheet.findall(str(message.json['from']['id'])))
-	row = sheet.row_values(row.split()[1][1:2])
-	uname = str(row[1])
-	password = base64.b64decode(bytes(str(row[2])[2:-1], 'ascii'))
-	data = {'username':uname,'password':str(password)[2:-1],'options':{'sem':'3'}}
-	content = json.loads(requests.post(url,json=data).text)
-	print_msg = "SGPA : " + str(content['data']['SGPA']+"\n")
-	for i in range (0,len(content['data']['grades'])):
-		print_msg += content['data']['grades'][i]['name']+" "+content['data']['grades'][i]['grade']+"\n"
-	bot.reply_to(message, print_msg)
-	# except:
-	# 	bot.reply_to(message, "Unable to request")
+	try:
+		row=str(sheet.findall(str(message.json['from']['id'])))
+		row = sheet.row_values(row.split()[1][1:2])
+		uname = str(row[1])
+		password = base64.b64decode(bytes(str(row[2])[2:-1], 'ascii'))
+		data = {'username':uname,'password':str(password)[2:-1],'options':{'sem':'3'}}
+		content = requests.post(url,json=data)
+		content = content.json()
+		print_msg = "SGPA : " + str(content['data']['SGPA']+"\n")
+		for i in range (0,len(content['data']['grades'])):
+			print_msg += content['data']['grades'][i]['name']+" "+content['data']['grades'][i]['grade']+"\n"
+		bot.reply_to(message, print_msg)
+	except :
+		bot.reply_to(message, "Unable to request")
 
 #-------------attendance-----------#
 @bot.message_handler(commands=['attendance'])
@@ -209,8 +209,9 @@ def send_welcome(message):
 		row = sheet.row_values(row.split()[1][1:2])
 		uname = str(row[1])
 		password = base64.b64decode(bytes(str(row[2])[2:-1], 'ascii'))
-		data = {'username':uname,'password':str(password)[2:-1],'options':{'sem':'3'}}
-		content = json.loads(requests.post(url,json=data).text)
+		data = {'username':uname,'password':str(password)[2:-1],'options':{'sem':'4'}}
+		content = requests.post(url,json=data)
+		content = content.json()
 		print_msg=""
 		for i in range (0,len(content['data'][0])):
 			print_msg+=content['data'][i]['name']+" "+content['data'][i]['percentage']+"\n"
