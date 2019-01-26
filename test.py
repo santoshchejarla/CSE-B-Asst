@@ -17,15 +17,15 @@ def send_welcome(message):
 @bot.message_handler(commands=['tt'])
 def send_welcome(message):
 	if(datetime.datetime.today().isoweekday()==1):
-		bot.reply_to(message, "Todays time-table:\n DS,CIR-SS,Elective,--,Maths,DS-lab \n - Heil CSE-B -")
+		bot.reply_to(message, "Todays time-table:\n MATHS,OS,ELECTIVE,--,EMBEDDED SYSTEMS,ALGORITHMS,EMBEDDED SYSTEMS LAB\n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==2):
-		bot.reply_to(message, "Todays time-table:\n Maths,CIR-verbals,Oops,--,ECE,DS \n - Heil CSE-B - ")
+		bot.reply_to(message, "Todays time-table:\n ALGORITHMS,CIR-soft skills,OS,--,OS LAB,MATHS\n - Heil CSE-B - ")
 	if(datetime.datetime.today().isoweekday()==3):
-		 bot.reply_to(message, "Todays time-table:\n DS,Maths,ECE-Lab,--,CIR-Life skills,Oops \n - Heil CSE-B -")
+		 bot.reply_to(message, "Todays time-table:\n EMBEDDED SYSTEMS,ALGORITHMS,ALGORITHMS,--,MATHS,OS\n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==4):
-		bot.reply_to(message, "Todays time-table:\n ECE-Lab,Oops-Lab,--,Elective,ECE \n - Heil CSE-B -")
+		bot.reply_to(message, "Todays time-table:\n CIR(QA),CIR(VA)\n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==5):
-		bot.reply_to(message, "Todays time-table:\n Oops,ECE,DS,Maths,--,Oops,ECE \n - Heil CSE-B -")
+		bot.reply_to(message, "Todays time-table:\n MATHS,EMBEDDED SYSTEMS,OS,--,ELECTIVE,AVP \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==6):
 		bot.reply_to(message, "Sorry, I don't work on weekends :P \n - Heil CSE-B -")
 	if(datetime.datetime.today().isoweekday()==7):
@@ -34,7 +34,7 @@ def send_welcome(message):
 #---------------- cinfo ----------------------#	
 @bot.message_handler(commands=['cinfo'])
 def send_welcome(message):
-	bot.reply_to(message, "Cousers info :\nDS -15CSE201,15CSE281- Krishnaveni\nOops -15CSE202,15CSE282- Kavita Kr\nMaths -15MAT201- \nECE -15ECE202- lakshmi\nECE lab -15ECE281- Pratima\n: CIR :\nManoj - ")
+	bot.reply_to(message, "Cousers info :\n-15MAT213 :- SATHI DEVI \n-15CSE213,15CSE286(OS) :- GAYATRI \n-15CSE285,15CSE212(EMBEDDED SYSTEMS) :- \n15CSE211(ALGORITHMS) :- PADMAMALA")
 
 #----------------Not implemented - einfo,hinfo---------#
 @bot.message_handler(commands=['einfo', 'hinfo'])
