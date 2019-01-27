@@ -18,7 +18,7 @@ def send_welcome(message):
 		F.close
 	except:
 		print("Error in logging the request")
-	bot.reply_to(message, "Hi, here are list of commands available:\n/hi,/about,/desc,/hallo,/ola - Greeting msg\n/tt - displays time-table\n/asgn - displays pending assignments\n/cinfo - displays course info\n/einfo - displays exams info\n/hinfo - displays holidays info\n - Heil CSE-B -")
+	bot.reply_to(message, "Hi, here are list of commands available:\n/hi,/about,/desc,/hallo,/ola - Greeting msg\n/tt - displays time-table\n/asgn - displays pending assignments\n/cinfo - displays course info\n/einfo - displays exams info\n/hinfo - displays holidays info\n/register <username> <password> - to register\n/attendance - displays attendance\n/grades - displays grades\n - Heil CSE-B -")
 
 @bot.message_handler(commands=['hi', 'about','desc','hallo','ola'])
 def send_welcome(message):
@@ -69,7 +69,7 @@ def send_welcome(message):
 		F.close
 	except:
 		print("Error in logging the request")
-	bot.reply_to(message, "Cousers info :\nDS -15CSE201,15CSE281- Krishnaveni\nOops -15CSE202,15CSE282- Kavita Kr\nMaths -15MAT201- \nECE -15ECE202- lakshmi\nECE lab -15ECE281- Pratima\n: CIR :\nManoj - ")
+	bot.reply_to(message, "Cousers info :\nOS -15CSE213 - Gayathri ma'am\nAlgorithms -15CSE211- Padmamala ma'am\nEmbedded Systems -15CSE212- Anu ma'am \nMaths -15MAT213- Devi ma'am \n Emdedded lab -15CSE285- Anu ma'am\nOS lab -15CSE286- Gayathri ma'am\nAVP -15AVP211- Sai ram sir ")
 
 #----------------Not implemented - einfo,hinfo---------#
 @bot.message_handler(commands=['einfo', 'hinfo'])
@@ -177,16 +177,26 @@ def send_welcome(message):
 		row=str(sheet.findall(str(message.json['from']['id'])))
 		row = sheet.row_values(row.split()[1][1:2])
 		uname = str(row[1])
-		password = row[2][2:-1].encode()
+		password = row[2].encode()
 		password = base64.b64decode(password)
-		password = password.decode()
-		data = {'username':uname,'password':password,'options':{'sem':'3'}}
-		content = requests.post(url,json=data)
-		content = content.json()
-		print_msg = "SGPA : " + str(content['data']['SGPA']+"\n")
-		for i in range (0,len(content['data']['grades'])):
-			print_msg += content['data']['grades'][i]['name']+" "+content['data']['grades'][i]['grade']+"\n"
-		bot.reply_to(message, print_msg)
+		try:
+			password = password.decode()
+			data = {'username':uname,'password':password,'options':{'sem':'3'}}
+			content = requests.post(url,json=data)
+			print(content.text)
+			try:
+				content = content.json()
+				print_msg = "SGPA : " + str(content['data']['SGPA']+"\n")
+				for i in range (0,len(content['data']['grades'])):
+					try:
+						print_msg += content['data']['grades'][i]['name']+" "+content['data']['grades'][i]['grade']+"\n"
+					except:
+						print('subject is missing')	
+				bot.reply_to(message, print_msg)
+			except:
+				bot.reply_to(message,'Unable to request')
+		except:
+			bot.reply_to(message,'unable to request')
 	except :
 		bot.reply_to(message, "Unable to request")
 
@@ -210,16 +220,25 @@ def send_welcome(message):
 		row=str(sheet.findall(str(message.json['from']['id'])))
 		row = sheet.row_values(row.split()[1][1:2])
 		uname = str(row[1])
-		password = row[2][2:-1].encode()
+		password = row[2].encode()
 		password = base64.b64decode(password)
-		password = password.decode()
-		data = {'username':uname,'password':password,'options':{'sem':'4'}}
-		content = requests.post(url,json=data)
-		content = content.json()
-		print_msg=""
-		for i in range (0,len(content['data'][0])):
-			print_msg+=content['data'][i]['name']+" "+content['data'][i]['percentage']+"\n"
-		bot.reply_to(message,print_msg)
+		try:
+			password = password.decode()
+			data = {'username':uname,'password':password,'options':{'sem':'4'}}
+			print_msg=''
+			content = requests.post(url,json=data)
+			try:
+				content = content.json()
+				for i in range (0,len(content['data'][0])):
+					try:
+						print_msg+=content['data'][i]['name']+" "+content['data'][i]['percentage']+"\n"
+					except:
+						print('no hum')
+				bot.reply_to(message,print_msg)
+			except:
+				bot.reply_to(message,"Unable to request")
+		except:
+			bot.reply_to(message,"Unable to request")
 	except IndexError as e:
 		print(e)
 		bot.reply_to(message,'unable to process the request')
@@ -244,11 +263,13 @@ def send_welcome(message):
 	try:
 		Bot_test = sheet.get_all_records()
 		asgn_text=message.text.split()
+		length = len(Bot_test)+2
+		length =  str(length)
 		if (len(asgn_text)==3):
-			sheet.update_acell("A"+str(len(Bot_test)+2),message.json['from']['id'])
-			sheet.update_acell("B"+str(len(Bot_test)+2),asgn_text[1])
-			password= base64.b64encode(bytes(asgn_text[2],'ascii'))
-			sheet.update_acell("C"+str(len(Bot_test)+2),str(password))
+			sheet.update_acell("A"+length,message.json['from']['id'])
+			sheet.update_acell("B"+length,asgn_text[1])
+			password= base64.b64encode(bytes(asgn_text[2]))
+			sheet.update_acell("C"+length,(password))
 			bot.reply_to(message,"User registered successfully!")
 		else : 
 			bot.reply_to(message,"Please follow the correct syntax : /register <username> <password>")	
